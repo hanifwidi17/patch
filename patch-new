@@ -1,0 +1,25 @@
+#!/bin/bash
+apt update -y
+apt install wget -y
+wget https://github.com/hanifwidi17/patch/raw/main/add-tr.x
+wget https://github.com/hanifwidi17/patch/raw/main/add-vm.x
+wget https://github.com/hanifwidi17/patch/raw/main/renew-tr.x
+wget https://github.com/hanifwidi17/patch/raw/main/renew-vm.x
+wget https://github.com/hanifwidi17/patch/raw/main/auto.sh
+touch /etc/.list
+mv add-tr.x /usr/bin/add-tr
+mv add-vm.x /usr/bin/add-vm
+mv renew-tr.x /usr/bin/renew-tr
+mv renew-vm.x /usr/bin/renew-vm
+mv auto.x /usr/bin/auto
+chmod +x /usr/bin/add-tr
+chmod +x /usr/bin/add-vm
+chmod +x /usr/bin/renew-tr
+chmod +x /usr/bin/renew-vm
+chmod +x /usr/bin/auto
+crontab -l ; echo "* * * * * /usr/bin/auto >/dev/null 2>&1" | crontab -
+sleep 2
+sed -i "/^menu/d" /root/.profile
+sleep 2
+echo "Installasi sukses"
+
