@@ -1,0 +1,9 @@
+#!/bin/bash
+read -rp "User: " -e user
+read -rp "Key: " -e key
+read -rp "Expired: " -e expired
+sed -i '/#trojanws$/a\#! '"$user $expired"'\
+},{"password": "'""$key""'","email": "'""$user""'"' /etc/xray/config.json
+sed -i '/#trojangrpc$/a\#! '"$user $expired"'\
+},{"password": "'""$key""'","email": "'""$user""'"' /etc/xray/config.json
+echo '#!' $user $expired >> /etc/.list

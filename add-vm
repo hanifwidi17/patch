@@ -1,0 +1,10 @@
+#!/bin/bash
+read -rp "User: " -e user
+read -rp "Key: " -e key
+read -rp "Expired: " -e expired
+sed -i '/#vmess$/a\### '"$user $expired"'\
+},{"id": "'""$key""'","alterid": '0',"email": "'""$user""'"' /etc/xray/config.json
+sed -i '/#vmessgrpc$/a\### '"$user $expired"'\
+},{"id": "'""$key""'","alterid": '0',"email": "'""$user""'"' /etc/xray/config.json
+echo '###' $user $expired >> /etc/.list
+systemctl restart xray
