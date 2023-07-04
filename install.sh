@@ -1,11 +1,11 @@
 #!/bin/bash
 apt update -y
 apt install wget -y
-wget https://github.com/hanifwidi17/patch/raw/main/add-tr
-wget https://github.com/hanifwidi17/patch/raw/main/add-vm
-wget https://github.com/hanifwidi17/patch/raw/main/renew-tr
-wget https://github.com/hanifwidi17/patch/raw/main/renew-vm
-wget https://github.com/hanifwidi17/patch/raw/main/auto
+wget --no-check-certificate https://github.com/hanifwidi17/patch/raw/main/add-tr
+wget --no-check-certificate https://github.com/hanifwidi17/patch/raw/main/add-vm
+wget --no-check-certificate https://github.com/hanifwidi17/patch/raw/main/renew-tr
+wget --no-check-certificate https://github.com/hanifwidi17/patch/raw/main/renew-vm
+wget --no-check-certificate https://github.com/hanifwidi17/patch/raw/main/auto
 touch /etc/.list
 mv add-tr /usr/bin/add-tr
 mv add-vm /usr/bin/add-vm
