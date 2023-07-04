@@ -1,0 +1,39 @@
+#!/bin/bash
+data=( `cat /etc/.list | grep '^#!' | cut -d ' ' -f 2`);
+now_d=`date +"%Y-%m-%d"`
+now_h=`date +"%T"`
+for user in "${data[@]}"
+do
+exp_d=$(grep -w "^#! $user" "/etc/.list" | cut -d ' ' -f 3)
+exp_h=$(grep -w "^#! $user" "/etc/.list" | cut -d ' ' -f 4)
+d1=$(date -d "$exp_d" +%s)
+d2=$(date -d "$exp_h" +%s)
+d3=$(date -d "$now_d" +%s)
+d4=$(date -d "$now_h" +%s)
+exp1=$(( (d1 - d3) / 86400 ))
+exp2=$(( (d2 - d4) / 60 ))
+if [[ "$exp1" == "0" && "$exp2" == "0" ]]; then
+sed -i "/^#! $user $exp_d $exp_h/,/^},{/d" /etc/xray/config.json
+sed -i "/^#! $user $exp_d $exp_h/d" /etc/.list
+systemctl restart xray
+fi
+done
+data=( `cat /etc/.list | grep '^###' | cut -d ' ' -f 2`);
+now_d=`date +"%Y-%m-%d"`
+now_h=`date +"%T"`
+for user in "${data[@]}"
+do
+exp_d=$(grep -w "^### $user" "/etc/.list" | cut -d ' ' -f 3)
+exp_h=$(grep -w "^### $user" "/etc/.list" | cut -d ' ' -f 4)
+d1=$(date -d "$exp_d" +%s)
+d2=$(date -d "$exp_h" +%s)
+d3=$(date -d "$now_d" +%s)
+d4=$(date -d "$now_h" +%s)
+exp1=$(( (d1 - d3) / 86400 ))
+exp2=$(( (d2 - d4) / 60 ))
+if [[ "$exp1" == "0" && "$exp2" == "0" ]]; then
+sed -i "/^### $user $exp_d $exp_h/,/^},{/d" /etc/xray/config.json
+sed -i "/^### $user $exp_d $exp_h/d" /etc/.list
+systemctl restart xray
+fi
+done

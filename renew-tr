@@ -1,0 +1,8 @@
+#!/bin/bash
+read -rp "User: " user
+read -rp "Tanggal: " tanggal
+read -rp "Jam: " jam
+exp=$(grep -w "^#! $user" "/etc/.list" | cut -d ' ' -f 3)
+exp_h=$(grep -w "^#! $user" "/etc/.list" | cut -d ' ' -f 4)
+sed -i "s/#! $user $exp $exp_h/#! $user $tanggal $jam/g" /etc/xray/config.json
+sed -i "s/#! $user $exp $exp_h/#! $user $tanggal $jam/g" /etc/.list
